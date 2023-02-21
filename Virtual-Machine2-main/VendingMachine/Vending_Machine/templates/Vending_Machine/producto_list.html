@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <a href="{% url 'zonaAdmin'%}">Volver atrás</a>
+  <br>
+  <h1>Product List</h1>
+  {% if producto_list %}
+  <ul>
+    {% for producto in producto_list %}
+        <a href="{{ producto.get_absolute_url }}">{{ producto.nombre_producto }}</a>
+        <br>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no authors listed.</p>
+  {% endif %}
+{% endblock %}

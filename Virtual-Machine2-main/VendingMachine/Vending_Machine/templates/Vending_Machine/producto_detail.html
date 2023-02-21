@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<a href="{% url 'zonaAdmin'%}">Volver atrás</a>
+<br>
+<h1>Product: {{ producto.nombre_producto }}</h1>
+<p><strong>Código:</strong> {{ producto.codigo_producto }}</p>
+<p><strong>Precio:</strong> {{ producto.precio }}</p>
+<p><strong>Stock:</strong> {{ producto.stock }}</p>
+<p><strong>Número comprados:</strong> {{ producto.num_comprados }}</p>
+<br>
+<a href="{{ producto.get_edit_url }}">Edit Product</a>
+{% endblock %}

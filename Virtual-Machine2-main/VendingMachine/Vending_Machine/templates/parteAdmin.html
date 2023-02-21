@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <p>{{error}}</p>
+    <a href="{% url 'producto-list'%}">Editar precios</a>
+    <p>&emsp;</p>
+    <a href="{% url 'alertar-proveedor'%}">Alertar proovedor</a>
+    <p>&emsp;</p>
+    <a href="{% url 'ver-estadisticas'%}">Ver estadísticas y ventas</a>
+{% endblock %}

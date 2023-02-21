@@ -24,11 +24,12 @@
 
 
         
-        <div class="bg-light border rounded-3">
+        <form method="POST" action="{% url 'pagar' %}"  class="bg-light border rounded-3">
+            {% csrf_token %}
             <br><br><br>
-            <form class="d-flex justify-content-center col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 w-50 mx-auto">
-                <input id="codigoDeProducto" class="form-control" placeholder="Código de producto" aria-label="Search">
-            </form>
+            <div class="d-flex justify-content-center col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 w-50 mx-auto">
+                <input id="codigoDeProducto" name="codigoDeProducto" class="form-control" placeholder="Código de producto" aria-label="Search"> 
+            </div>
             <br>
             <div class="justify-content-center mx-auto">
                 <p>Seleccione la forma de pago:</p>
@@ -94,8 +95,9 @@
 
             <div id="formTarjeta" style="display: block;">
                 <div class="bg-light border rounded-3">
+                    
                     <br>
-                    <form class="row g-3 mx-auto">
+                    <div class="row g-3 mx-auto">
                         <div class="col-12">
                             <label for="nombreTitular" class="form-label">Nombre del titular de la tarjeta</label>
                             <input type="text" class="form-control" id="nombreTitular" required>
@@ -121,9 +123,9 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-warning">Pagar</button>
+                            <button type="submit">Pagar</button>
                         </div>
-                    </form>
+                    </div>
                     <br>
                 </div>
                 
@@ -137,74 +139,16 @@
 
             <div id="formGooglePay" style="display: none;">
                 <button type="submit">
-                    <img src="https://developers.google.com/pay/api/images/buttons/google-pay-logo.png" alt="Pagar con Google Pay">
+                    <img src="https://www.srcu4u.com/creditunion/wp-content/uploads/2019/07/Google-Pay-Logo-01.png" alt="Pagar con Google Pay">
                 </button>
-            </div> 
+            </div>
 
         
-        </div>
+        </form>
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-
-    /*var codigoDeProducto = document.getElementById("codigoDeProducto");
-    var formTarjeta = document.getElementById("formTarjeta");
-
-    formTarjeta.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        // Obtener el código de producto del formulario de tarjeta
-        var codigo_producto = codigoDeProducto.value;
-
-        // Buscar el objeto de producto correspondiente en la lista productos
-        var producto = null;
-        for (var i = 0; i < productos.length; i++) {
-            if (productos[i].codigo_producto === codigo_producto) {
-                producto = productos[i];
-                break;
-            }
-        }
-
-        // Actualizar el stock y el contador de compras
-        if (producto !== null) {
-            producto.stock -= 1;
-            producto.numero_comprados += 1;
-        }
-
-        // Enviar los datos del formulario de tarjeta al servidor
-        var data = new FormData(formTarjeta);
-        fetch("{% url 'pagar' %}", {
-            method: "POST",
-            body: data,
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    });*/
-
-
-
-
-
-
 
     $(function(){
         $('#efectivo').click(function(){
@@ -231,6 +175,7 @@
             $('#formApplePay').hide();
             $('#formGooglePay').show();
         });
+
 
 
 
@@ -324,8 +269,36 @@
             $('#10euros').val(valorActual + 1);
         });
     })
+
+    /*function luhn_checksum(card_number) {
+    
+    //Esta función calcula el dígito de verificación de una tarjeta utilizando el algoritmo de Luhn.
+    
+    const digits = Array.from(card_number, Number);
+    const odd_digits = digits.slice(-1).concat(digits.slice(-3, -1).reverse());
+    const even_digits = digits.slice(0, -1).filter((_, i) => i % 2 === 0).map(digit => {
+      const doubled_digit = digit * 2;
+      return doubled_digit > 9 ? doubled_digit - 9 : doubled_digit;
+    });
+    const total = odd_digits.concat(even_digits).reduce((sum, digit) => sum + digit, 0);
+    return total % 10;
+    }
+    
+    function is_valid_card() {
+        let card_number = 
+        //Esta función verifica si una tarjeta es válida utilizando el algoritmo de Luhn.
+        
+        return luhn_checksum(card_number) === 0;
+    }
+    
+    // -------------------------- igualar card_number con el layout -----------------------------------------
+    const card_number = '4111111111111111';
+    if (is_valid_card(card_number)) {
+        console.log('La tarjeta es válida');
+    } else {
+        console.log('La tarjeta no es válida');
+    }*/
+
 </script>
 
 {% endblock %}
-
-

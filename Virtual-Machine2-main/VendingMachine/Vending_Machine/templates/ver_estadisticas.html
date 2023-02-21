@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<a href="{% url 'zonaAdmin'%}">Volver atrás</a>
+<br>
+<br>
+<p><b>Lista de productos ordenados por más vendidos con el dinero que han generado</b></p>
+<ul>
+{% for producto in productos %}
+    <li>{{ producto.nombre_producto }} - u.<b>{{ producto.num_comprados }}</b> - ganancias: <b>{{ producto.ingreso_total }}€</b></li>
+{% endfor %}
+</ul>
+
+<br>
+<p><b>Ingreso total:</b> {{ ingreso_total }}€</p>
+
+<br>
+<p><b>Producto que ha generado el mayor ingreso:</b> {{ producto_mayor_ganancia.nombre_producto }}</p>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<a href="{% url 'zonaAdmin'%}">Volver atrás</a>
+<br>
+<input name="producto" placeholder="Escribe aquí el producto para alertar" required>
+<button type="button" onclick="alert('Se ha mandado la alerta')">Alertar provedoor</button>
+
+<br>
+{% if productos_bajo_stock %}
+    <br>
+    <h2>Productos con bajo stock:</h2>
+    <ul>
+    {% for producto in productos_bajo_stock %}
+        {% if producto.stock == 0 %}
+            <li><span style="color: red">{{ producto.nombre_producto }}</span> - Stock: {{ producto.stock }}</li>
+        {% else %}
+            <li>{{ producto.nombre_producto }} - Stock: {{ producto.stock }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay productos con bajo stock</p>
+{% endif %}
+
+{% endblock %}
+
+
+
+
