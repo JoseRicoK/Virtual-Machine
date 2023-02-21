@@ -5,21 +5,35 @@
 <div class="container-fluid pb-3">
     <div class="d-grid gap-3" style="grid-template-columns: 1fr 1fr;">
         <div class="bg-light border rounded-3">
-            <br><br><table>
-                {% for i in productos %}
-                    {% if forloop.first %}
+            <br><br>
+              
+            <table>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Código</th>
+                    <th>Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in productos %}
                     <tr>
-                    {% endif %}
-                        <td>{{ i.nombre_producto }}</td>
-                        <td>{{ i.precio }}</td>
-                        <td>{{ i.codigo_producto }}</td>
-                        <td>{{ i.stock }}</td>
-                    {% if forloop.counter0|divisibleby:4 or forloop.last %}
+                      <td>{{ i.nombre_producto }}</td>
+                      <td>{{ i.precio }}</td>
+                      <td>{{ i.codigo_producto }}</td>
+                      
+                        {% if i.stock <= 0 %}
+                          <td class="agotado">Agotado</td>
+                        {% else %}
+                          <td>{{ i.stock }}</td>
+                        {% endif %}
+                      
                     </tr>
-                    {% endif %}
-                {% endfor %}
-
-              </table><br><br><br><br><br><br><br><br>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <br><br><br><br><br><br><br><br>
         </div>
 
 
@@ -41,54 +55,61 @@
             </div>
 
             <div id="formEfectivo" style="display: none;">
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <p class="m-0">5 céntimos:</p>
-                <button id="menos5Centimos" class="btn btn-danger mx-2">-</button>
-                <input id="5Centimos" type="number" class="form-control w-25 mx-2" value="0">
-                <button id="mas5Centimos" class="btn btn-success mx-2">+</button>
-            </div>
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <p class="m-0">10 céntimos:</p>
-                <button id="menos10Centimos" class="btn btn-danger mx-2">-</button>
-                <input id="10Centimos" type="number" class="form-control w-25 mx-2" value="0">
-                <button id="mas10Centimos" class="btn btn-success mx-2">+</button>
-            </div>
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <p class="m-0">20 céntimos:</p>
-                <button id="menos20Centimos" class="btn btn-danger mx-2">-</button>
-                <input id="20Centimos" type="number" class="form-control w-25 mx-2" value="0">
-                <button id="mas20Centimos" class="btn btn-success mx-2">+</button>
-            </div>
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <p class="m-0">50 céntimos:</p>
-                <button id="menos50Centimos" class="btn btn-danger mx-2">-</button>
-                <input id="50Centimos" type="number" class="form-control w-25 mx-2" value="0">
-                <button id="mas50Centimos" class="btn btn-success mx-2">+</button>
-            </div>
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <p class="m-0">1 euro:</p>
-                <button id="menos1euro" class="btn btn-danger mx-2">-</button>
-                <input id="1euro" type="number" class="form-control w-25 mx-2" value="0">
-                <button id="mas1euro" class="btn btn-success mx-2">+</button>
-            </div>
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <p class="m-0">2 euros:</p>
-                <button id="menos2euros" class="btn btn-danger mx-2">-</button>
-                <input id="2euros" type="number" class="form-control w-25 mx-2" value="0">
-                <button id="mas2euros" class="btn btn-success mx-2">+</button>
-            </div>
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <p class="m-0">Billete 5 euros:</p>
-                <button id="menosBillete5euros" class="btn btn-danger mx-2">-</button>
-                <input id="5euros" type="number" class="form-control w-25 mx-2" value="0">
-                <button id="masBillete5euros" class="btn btn-success mx-2">+</button>
-            </div>
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <p class="m-0">Billete 10 euros:</p>
-                <button id="menosBillete10euros" class="btn btn-danger mx-2">-</button>
-                <input id="10euros" type="number" class="form-control w-25 mx-2" value="0">
-                <button id="masBillete10euros" class="btn btn-success mx-2">+</button>
-            </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <p class="m-0">5 céntimos:</p>
+                    <button id="menos5Centimos" class="btn btn-danger mx-2">-</button>
+                    <input id="5Centimos" type="number" class="form-control w-25 mx-2" value="0">
+                    <button id="mas5Centimos" class="btn btn-success mx-2">+</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <p class="m-0">10 céntimos:</p>
+                    <button id="menos10Centimos" class="btn btn-danger mx-2">-</button>
+                    <input id="10Centimos" type="number" class="form-control w-25 mx-2" value="0">
+                    <button id="mas10Centimos" class="btn btn-success mx-2">+</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <p class="m-0">20 céntimos:</p>
+                    <button id="menos20Centimos" class="btn btn-danger mx-2">-</button>
+                    <input id="20Centimos" type="number" class="form-control w-25 mx-2" value="0">
+                    <button id="mas20Centimos" class="btn btn-success mx-2">+</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <p class="m-0">50 céntimos:</p>
+                    <button id="menos50Centimos" class="btn btn-danger mx-2">-</button>
+                    <input id="50Centimos" type="number" class="form-control w-25 mx-2" value="0">
+                    <button id="mas50Centimos" class="btn btn-success mx-2">+</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <p class="m-0">1 euro:</p>
+                    <button id="menos1euro" class="btn btn-danger mx-2">-</button>
+                    <input id="1euro" type="number" class="form-control w-25 mx-2" value="0">
+                    <button id="mas1euro" class="btn btn-success mx-2">+</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <p class="m-0">2 euros:</p>
+                    <button id="menos2euros" class="btn btn-danger mx-2">-</button>
+                    <input id="2euros" type="number" class="form-control w-25 mx-2" value="0">
+                    <button id="mas2euros" class="btn btn-success mx-2">+</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <p class="m-0">Billete 5 euros:</p>
+                    <button id="menosBillete5euros" class="btn btn-danger mx-2">-</button>
+                    <input id="5euros" type="number" class="form-control w-25 mx-2" value="0">
+                    <button id="masBillete5euros" class="btn btn-success mx-2">+</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <p class="m-0">Billete 10 euros:</p>
+                    <button id="menosBillete10euros" class="btn btn-danger mx-2">-</button>
+                    <input id="10euros" type="number" class="form-control w-25 mx-2" value="0">
+                    <button id="masBillete10euros" class="btn btn-success mx-2">+</button>
+                </div>
+
+                <div class="col-12">
+                    {% if producto.stock == 0 %} <p class="agotado">Producto agotado</p> {% endif %}
+                    <button type="submit" class="btn btn-primary btn-warning">Pagar</button>
+                    <br><br>
+                    <h4 class="mensaje">{{ mensaje }}</h4>
+                </div>
                 
             
             </div>
@@ -123,7 +144,10 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="submit">Pagar</button>
+                            {% if producto.stock == 0 %} <p class="agotado">Producto agotado</p> {% endif %}
+                            <button type="submit" class="btn btn-primary btn-warning">Pagar</button>
+                            <br><br>
+                            <h4 class="mensaje">{{ mensaje }}</h4>
                         </div>
                     </div>
                     <br>
@@ -147,6 +171,46 @@
         </form>
     </div>
 </div>
+
+<style>
+    .producto {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  
+    .nombre {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+  
+    .precio, .codigo, .stock {
+      margin-right: 10px;
+    }
+
+    table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid black;
+  }
+
+  th {
+    background-color: #ccc;
+  }
+
+  .agotado {
+    color: red;
+  }
+
+  .mensaje {
+    color: rgb(2, 154, 15);
+  }
+  </style>
 
 <script>
 
@@ -270,34 +334,33 @@
         });
     })
 
-    /*function luhn_checksum(card_number) {
-    
-    //Esta función calcula el dígito de verificación de una tarjeta utilizando el algoritmo de Luhn.
-    
-    const digits = Array.from(card_number, Number);
-    const odd_digits = digits.slice(-1).concat(digits.slice(-3, -1).reverse());
-    const even_digits = digits.slice(0, -1).filter((_, i) => i % 2 === 0).map(digit => {
-      const doubled_digit = digit * 2;
-      return doubled_digit > 9 ? doubled_digit - 9 : doubled_digit;
-    });
-    const total = odd_digits.concat(even_digits).reduce((sum, digit) => sum + digit, 0);
-    return total % 10;
-    }
-    
-    function is_valid_card() {
-        let card_number = 
-        //Esta función verifica si una tarjeta es válida utilizando el algoritmo de Luhn.
-        
-        return luhn_checksum(card_number) === 0;
-    }
-    
-    // -------------------------- igualar card_number con el layout -----------------------------------------
-    const card_number = '4111111111111111';
-    if (is_valid_card(card_number)) {
-        console.log('La tarjeta es válida');
-    } else {
-        console.log('La tarjeta no es válida');
-    }*/
+    function luhn_checksum(card_number) {
+  //Esta función calcula el dígito de verificación de una tarjeta utilizando el algoritmo de Luhn.
+
+  const digits = Array.from(card_number, Number);
+  const odd_digits = digits.slice(-1).concat(digits.slice(-3, -1).reverse());
+  const even_digits = digits.slice(0, -1).filter((_, i) => i % 2 === 0).map(digit => {
+    const doubled_digit = digit * 2;
+    return doubled_digit > 9 ? doubled_digit - 9 : doubled_digit;
+  });
+  const total = odd_digits.concat(even_digits).reduce((sum, digit) => sum + digit, 0);
+  return total % 10;
+}
+
+function is_valid_card(card_number) {
+  //Esta función verifica si una tarjeta es válida utilizando el algoritmo de Luhn.
+
+  return luhn_checksum(card_number) === 0;
+}
+
+// -------------------------- igualar card_number con el layout -----------------------------------------
+const card_number = '4111111111111111';
+if (is_valid_card(card_number)) {
+  console.log('La tarjeta es válida');
+} else {
+  console.log('La tarjeta no es válida');
+}
+
 
 </script>
 

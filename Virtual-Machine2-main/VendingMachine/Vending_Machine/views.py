@@ -18,23 +18,19 @@ def pagar(request):
         codigoProducto = request.POST['codigoDeProducto']
         try:
             producto = Producto.objects.get(codigo_producto=codigoProducto)
-            #producto = listaProducto[0]
-            print(f" {codigoProducto}")
-            print(f"{producto.stock}")
+            productos = Producto.objects.all()
+            if producto.stock <= 0:
+                return redirect('/')
             producto.stock -= 1
-            print(f"{producto.stock}")
             producto.num_comprados += 1
             producto.save()
-            
-        
-            
-            return redirect('/')
+            mensaje = f"¡Gracias por comprar {producto.nombre_producto}!"
+            return render(request, 'index.html', {'mensaje':mensaje, 'productos': productos})
         except ObjectDoesNotExist:
-            context = {'error': f"El producto con código {codigoProducto} no existe."}
-            return render(request, 'parteAdmin.html', context)
+            return redirect('/')
     else:
-        context = {'error': "error"}
-        return render(request, 'parteAdmin.html', context)
+        return redirect('/')
+
 
 
 
@@ -52,7 +48,7 @@ class ProductDetailView(generic.DetailView):
 class ProductEditView(generic.UpdateView):
     model = Producto
     template_name_suffix = "_edit"
-    fields = ['codigo_producto', 'nombre_producto', 'precio', 'stock', 'num_comprados']
+    fields = ['nombre_producto', 'precio', 'stock', 'num_comprados']
 
 def zonaAdmin(request):
     productos = Producto.objects.all()
@@ -64,12 +60,29 @@ def editPrecio(request):
     context = {'productos': productos}
     return render(request, 'edit_precio.html', context=context)
 
+
 def alertarProveedor(request):
     # Obtiene todos los productos con stock igual o inferior a 1
     productos_bajo_stock = Producto.objects.filter(stock__lte=1)
 
+    # Verifica si se ha enviado un formulario
+    if request.method == 'POST':
+        # Obtiene el valor del campo de entrada "producto"
+        producto_nombre = request.POST['producto']
+
+        # Obtiene el producto con el nombre especificado
+        producto = Producto.objects.get(nombre_producto=producto_nombre)
+
+        # Actualiza el stock del producto a 6
+        producto.stock = 6
+        producto.save()
+
+        # Redirige al usuario a la misma página
+        return redirect('alertar-proveedor')
+
     context = {'productos_bajo_stock': productos_bajo_stock}
     return render(request, 'alertar_proveedor.html', context=context)
+
 
 def verEstadisticas(request):
     productos = Producto.objects.all().order_by('-num_comprados')

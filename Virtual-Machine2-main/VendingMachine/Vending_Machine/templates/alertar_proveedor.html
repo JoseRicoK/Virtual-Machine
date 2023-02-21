@@ -3,8 +3,11 @@
 {% block content %}
 <a href="{% url 'zonaAdmin'%}">Volver atrás</a>
 <br>
-<input name="producto" placeholder="Escribe aquí el producto para alertar" required>
-<button type="button" onclick="alert('Se ha mandado la alerta')">Alertar provedoor</button>
+<form action="{% url 'alertar-proveedor' %}" method="post">
+  {% csrf_token %}
+  <input id="producto" name="producto" placeholder="Escribe aquí el producto para alertar" required>
+  <button type="submit">Alertar proveedor</button>
+</form>
 
 <br>
 {% if productos_bajo_stock %}
@@ -24,7 +27,3 @@
 {% endif %}
 
 {% endblock %}
-
-
-
-
